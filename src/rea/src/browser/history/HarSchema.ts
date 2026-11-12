@@ -1,4 +1,7 @@
-import { createRequire } from "node:module";
+// @ts-expect-error har-schema publishes no declarations
+import harSchemaPackage from "har-schema";
+import jsonSchemaDraft06 from "ajv/dist/refs/json-schema-draft-06.json" with { type: "json" };
+import ajvFormatsPackage from "ajv-formats";
 import { isIP } from "node:net";
 import { Ajv } from "ajv";
 import { z } from "zod";
@@ -52,13 +55,12 @@ interface BracketedIpv6Adaptation {
 export const createHarValidator = (): ((
   value: unknown,
 ) => BracketedIpv6Adaptation | null) => {
-  const require = createRequire(import.meta.url);
   const schemas = z
     .record(z.string(), z.record(z.string(), z.unknown()))
-    .parse(require("har-schema"));
+    .parse(harSchemaPackage as unknown);
   const ajv = new Ajv({ strict: false, allErrors: false, ownProperties: true });
-  ajv.addMetaSchema(require("ajv/dist/refs/json-schema-draft-06.json"));
-  const plugin: unknown = require("ajv-formats");
+  ajv.addMetaSchema(jsonSchemaDraft06);
+  const plugin: unknown = ajvFormatsPackage;
   if (typeof plugin !== "function")
     throw new Error("Pinned AJV formats plugin is unavailable");
   plugin(ajv);

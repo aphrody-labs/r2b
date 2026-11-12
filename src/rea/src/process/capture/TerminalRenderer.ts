@@ -1,4 +1,5 @@
-import { createRequire } from "node:module";
+import HeadlessPackage from "@xterm/headless";
+import SerializePackage from "@xterm/addon-serialize";
 import type { TerminalRetention } from "../../domain/process/processCaptureCoverage.js";
 import type { BoundedProcessTextNormalization } from "./ProcessNormalization.js";
 
@@ -7,13 +8,7 @@ import type {
   RenderedTerminalFrame,
 } from "../../domain/process/processCapture.js";
 
-const require = createRequire(import.meta.url);
-// SAFETY: both pinned xterm packages publish CommonJS at runtime and matching declarations.
-const HeadlessPackage =
-  require("@xterm/headless") as typeof import("@xterm/headless");
-// SAFETY: the addon package is pinned with the compatible headless xterm release.
-const SerializePackage =
-  require("@xterm/addon-serialize") as typeof import("@xterm/addon-serialize");
+// Static imports so `bun build --compile` embeds the CommonJS xterm packages.
 
 const TRAILING_SPACES = / +$/u;
 
