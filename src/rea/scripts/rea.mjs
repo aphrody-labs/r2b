@@ -312,6 +312,8 @@ function writeStdout(output) {
 }
 
 async function compiledRuntimeExists(paths) {
+  // `bun build --compile` embeds the dist modules in the executable.
+  if (import.meta.url.includes("$bunfs") || import.meta.url.includes("~BUN")) return true;
   for (const path of paths) {
     try {
       await access(resolve(packageRoot, path));
