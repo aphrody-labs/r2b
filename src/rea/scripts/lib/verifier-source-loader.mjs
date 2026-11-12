@@ -109,6 +109,8 @@ const loadSource = (url, context, nextLoad) => {
  * graph across owners. No transformed output is cached across Node versions.
  */
 export const importVerifierSource = async (url, parent) => {
+  // Bun loads TypeScript sources and maps .js specifiers to .ts natively.
+  if (typeof Bun !== "undefined") return import(new URL(url, parent).href);
   if (
     typeof nodeModule.registerHooks !== "function" ||
     typeof nodeModule.stripTypeScriptTypes !== "function"

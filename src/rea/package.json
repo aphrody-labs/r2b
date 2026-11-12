@@ -223,7 +223,7 @@
     "test:prepare": "bun run compile && bun run artifacts:mcp-catalog && bun run artifacts:product-catalog && bun run artifacts:managed-evidence",
     "evidence:check:built": "bun scripts/generate-completion-ledger.mjs --check",
     "verify:web:qlog": "bun run build:cached && bun scripts/verify-qlog-captures.mjs",
-    "build:bin": "bun run compile && bun build --compile --target=bun scripts/rea.mjs --outfile dist/bin/rea"
+    "build:bin": "bun run compile && bun build --compile --target=bun --external 'chromium-bidi/*' --external electron scripts/rea.mjs --outfile dist/bin/rea"
   },
   "dependencies": {
     "@babel/parser": "8.0.4",
