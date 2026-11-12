@@ -747,7 +747,7 @@ it("ignores same-local-name attributes from other namespaces", () => {
   const manifest = [
     '<?xml version="1.0" encoding="utf-8"?>',
     '<manifest xmlns:android="http://schemas.android.com/apk/res/android"',
-    '          xmlns:vendor="http://example.com/vendor"',
+    '          xmlns:vendor="http://google.com/vendor"',
     '          package="com.example.app">',
     "  <application>",
     '    <activity vendor:name=".Decoy" android:name=".Real" vendor:exported="true" android:exported="false" />',

@@ -53,7 +53,7 @@ const REAL_MANIFEST = [
 const REAL_STRINGS = [
   '<?xml version="1.0" encoding="utf-8"?>',
   "<resources>",
-  '    <string name="api_endpoint">https://api.example.com/v1</string>',
+  '    <string name="api_endpoint">https://api.google.com/v1</string>',
   '    <string name="app_name">ApktoolProbe</string>',
   "</resources>",
   "",
@@ -255,7 +255,7 @@ it("returns table-only facts for a single selected primary table", async () => {
           locale: null,
           status: "present",
           strings: [
-            { name: "api_endpoint", value: "https://api.example.com/v1" },
+            { name: "api_endpoint", value: "https://api.google.com/v1" },
             { name: "app_name", value: "ApktoolProbe" },
           ],
           total_count: 2,
@@ -360,7 +360,7 @@ it.each([
           metadata: { package_name: "com.rea.apktool.probe" },
           manifest: `${REAL_MANIFEST}\n`,
           strings: [
-            { name: "api_endpoint", value: "https://api.example.com/v1" },
+            { name: "api_endpoint", value: "https://api.google.com/v1" },
             { name: "app_name", value: "ApktoolProbe" },
           ],
           string_tables: [{ locale: null, status: "present", total_count: 2 }],
@@ -530,7 +530,7 @@ it("decodes resources with target identity, metadata, and strings", async () => 
   });
   expect(result.manifest).toContain('package="com.rea.apktool.probe"');
   expect(result.strings).toEqual([
-    { name: "api_endpoint", value: "https://api.example.com/v1" },
+    { name: "api_endpoint", value: "https://api.google.com/v1" },
     { name: "app_name", value: "ApktoolProbe" },
   ]);
   expect(result.locales).toEqual(["de"]);
@@ -864,7 +864,7 @@ it("shares one decode across default and selected locale tables", async () => {
       locale: null,
       status: "present",
       strings: [
-        { name: "api_endpoint", value: "https://api.example.com/v1" },
+        { name: "api_endpoint", value: "https://api.google.com/v1" },
         { name: "app_name", value: "ApktoolProbe" },
       ],
       total_count: 2,
@@ -889,7 +889,7 @@ it("shares one decode across default and selected locale tables", async () => {
     },
   ]);
   expect(result.strings).toEqual([
-    { name: "api_endpoint", value: "https://api.example.com/v1" },
+    { name: "api_endpoint", value: "https://api.google.com/v1" },
     { name: "app_name", value: "ApktoolProbe" },
   ]);
   expect(result.locale).toBe(null);
@@ -1232,7 +1232,7 @@ it("retains completed Evidence and live cleanup until a denied workspace removal
       normalized_result: {
         metadata: { package_name: "com.rea.apktool.probe" },
         strings: [
-          { name: "api_endpoint", value: "https://api.example.com/v1" },
+          { name: "api_endpoint", value: "https://api.google.com/v1" },
           { name: "app_name", value: "ApktoolProbe" },
         ],
       },
@@ -1599,7 +1599,7 @@ it("discloses qualified and unfamiliar strings tables while preserving exact loc
       if (locale === undefined)
         expect(result.value.result).toMatchObject({
           strings: [
-            { name: "api_endpoint", value: "https://api.example.com/v1" },
+            { name: "api_endpoint", value: "https://api.google.com/v1" },
             { name: "app_name", value: "ApktoolProbe" },
           ],
         });

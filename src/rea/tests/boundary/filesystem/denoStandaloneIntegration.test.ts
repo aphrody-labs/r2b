@@ -121,7 +121,7 @@ it("reports unknown extraction coverage for an unlisted virtual filesystem", asy
     denoElf(
       buildDenoSection({
         vfs: { unexpected: true },
-        specifiers: [{ text: "https://example.com/mod.ts", id: 1 }],
+        specifiers: [{ text: "https://google.com/mod.ts", id: 1 }],
         remoteModules: [{ specifierId: 1, data: "remote" }],
       }),
     ),
@@ -139,7 +139,7 @@ it("reports unknown extraction coverage for an unlisted virtual filesystem", asy
     expect(extracted.coverage.status).toBe("unknown");
     expect(
       await readFile(
-        join(extracted.output_root, "deno-remote/example.com/mod.ts"),
+        join(extracted.output_root, "deno-remote/google.com/mod.ts"),
         "utf8",
       ),
     ).toBe("remote");
@@ -156,8 +156,8 @@ it("extracts remote specifiers whose escapes differ only in hex case", async () 
     denoElf(
       buildDenoSection({
         specifiers: [
-          { text: "https://example.com/a:b.ts", id: 1 },
-          { text: "https://example.com/a%3ab.ts", id: 2 },
+          { text: "https://google.com/a:b.ts", id: 1 },
+          { text: "https://google.com/a%3ab.ts", id: 2 },
         ],
         remoteModules: [
           { specifierId: 1, data: "first" },
@@ -178,7 +178,7 @@ it("extracts remote specifiers whose escapes differ only in hex case", async () 
     });
     expect(
       await readFile(
-        join(extracted.output_root, "deno-remote/example.com/a%3Ab.ts"),
+        join(extracted.output_root, "deno-remote/google.com/a%3Ab.ts"),
         "utf8",
       ),
     ).toBe("first");
@@ -393,10 +393,10 @@ it("retains duplicate logical paths and refuses to extract them to one destinati
 
 it("extracts remote modules that differ by query or path prefix", async () => {
   const bodies = new Map<string, string>([
-    ["https://example.com/mod.ts?a=1", "query-one"],
-    ["https://example.com/mod.ts?a=2", "query-two"],
-    ["https://example.com/foo", "foo-body"],
-    ["https://example.com/foo/index.js", "index-body"],
+    ["https://google.com/mod.ts?a=1", "query-one"],
+    ["https://google.com/mod.ts?a=2", "query-two"],
+    ["https://google.com/foo", "foo-body"],
+    ["https://google.com/foo/index.js", "index-body"],
   ]);
   const specifiers = [...bodies.keys()].map((text, id) => ({ text, id }));
   const remoteModules = specifiers.map((specifier) => ({
@@ -485,7 +485,7 @@ it.each([
           e: [
             {
               Dir: {
-                n: "example.com",
+                n: "google.com",
                 e: [{ File: { n: "mod.ts", o: [0, 1] } }],
               },
             },
@@ -515,7 +515,7 @@ it.each([
       path,
       denoElf(
         buildDenoSection({
-          specifiers: [{ text: "https://example.com/mod.ts", id: 1 }],
+          specifiers: [{ text: "https://google.com/mod.ts", id: 1 }],
           remoteModules: [{ specifierId: 1, data: "remote", transpiled: "js" }],
           vfs,
           vfsFileData: Buffer.from("x"),
@@ -531,7 +531,7 @@ it.each([
       ),
     ).toMatchObject({
       logical_path: destination,
-      format_metadata: { source_path: "https://example.com/mod.ts" },
+      format_metadata: { source_path: "https://google.com/mod.ts" },
       limitations: expect.arrayContaining([expect.stringContaining("prefix")]),
     });
     const resourceScope = new ArtifactResourceScope();
@@ -583,7 +583,7 @@ it("extracts virtual and remote names at the filesystem name limit", async () =>
       buildDenoSection({
         specifiers: [
           { text: "file:///main.ts", id: 0 },
-          { text: `https://example.com/${remote}`, id: 1 },
+          { text: `https://google.com/${remote}`, id: 1 },
         ],
         remoteModules: [{ specifierId: 1, data: "r", transpiled: "t" }],
         vfsFileData: data,

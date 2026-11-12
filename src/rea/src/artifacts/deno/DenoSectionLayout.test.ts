@@ -24,7 +24,7 @@ it("parses metadata, tables, remote regions, and embedded configuration", async 
         argv: ["--quiet"],
         v8_flags: ["--stack-size=1000"],
         permissions: {
-          allow_net: ["example.com"],
+          allow_net: ["google.com"],
           allow_env: null,
           allow_read: true,
         },
@@ -38,7 +38,7 @@ it("parses metadata, tables, remote regions, and embedded configuration", async 
       npmSnapshot: Buffer.from("npm"),
       specifiers: [
         { text: "file:///main.ts", id: 0 },
-        { text: "https://example.com/mod.ts", id: 1 },
+        { text: "https://google.com/mod.ts", id: 1 },
       ],
       redirects: [{ from: 0, to: 1 }],
       remoteModules: [
@@ -58,7 +58,7 @@ it("parses metadata, tables, remote regions, and embedded configuration", async 
     argv: ["--quiet"],
     v8Flags: ["--stack-size=1000"],
     permissions: {
-      allow_net: ["example.com"],
+      allow_net: ["google.com"],
       allow_env: null,
       allow_read: true,
     },
@@ -83,7 +83,7 @@ it("parses metadata, tables, remote regions, and embedded configuration", async 
     data: { length: original.length },
     transpiled: { length: transpiled.length },
   });
-  expect(parsed.specifierText?.get(1)).toBe("https://example.com/mod.ts");
+  expect(parsed.specifierText?.get(1)).toBe("https://google.com/mod.ts");
   expect(parsed.vfs.listing).toBe("listed");
   expect(parsed.vfs.members[0]).toMatchObject({
     role: "vfs-file",
@@ -186,7 +186,7 @@ it("reports an invalid specifier as an unsupported listing", async () => {
 it("keeps decoded specifiers when another remote id is missing", async () => {
   const parsed = await parseDenoSectionBytes(
     buildDenoSection({
-      specifiers: [{ text: "https://example.com/mod.ts", id: 1 }],
+      specifiers: [{ text: "https://google.com/mod.ts", id: 1 }],
       remoteModules: [
         { specifierId: 1, data: "known" },
         { specifierId: 2, data: "missing" },
@@ -194,7 +194,7 @@ it("keeps decoded specifiers when another remote id is missing", async () => {
     }),
   );
   expect(parsed.remoteModules.listing).toBe("unsupported");
-  expect(parsed.specifierText?.get(1)).toBe("https://example.com/mod.ts");
+  expect(parsed.specifierText?.get(1)).toBe("https://google.com/mod.ts");
   expect(parsed.specifierText?.has(2)).toBe(false);
 });
 

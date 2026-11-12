@@ -505,7 +505,7 @@ it("refuses remote endpoints before constructing a connection", () => {
     () =>
       new JebProvider({
         connectionFactory,
-        environment: { REA_JEB_MCP_URL: "http://example.com/mcp" },
+        environment: { REA_JEB_MCP_URL: "http://google.com/mcp" },
       }),
   ).toThrow(AnalysisInputError);
   expect(connectionFactory).not.toHaveBeenCalled();

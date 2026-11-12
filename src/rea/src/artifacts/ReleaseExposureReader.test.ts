@@ -3495,7 +3495,7 @@ describe("ReleaseExposureReader member identity", () => {
     );
     await writeFile(
       join(root, "remote.js"),
-      "const value = 2;\n//# sourceMappingURL=https://example.com/debug.json\n",
+      "const value = 2;\n//# sourceMappingURL=https://google.com/debug.json\n",
     );
     const scanned = await inspect(root);
     expect(scanned.source_maps).toMatchObject({ embedded: 0, skipped: 1 });

@@ -297,10 +297,10 @@ const results: Readonly<Record<string, unknown>> = {
     client: clientIdentity,
     serial: "emulator-5554",
     action: "android.intent.action.VIEW",
-    data_uri: "https://example.com/",
+    data_uri: "https://google.com/",
     component: null,
     extras: [],
-    started_activity: "act=android.intent.action.VIEW dat=https://example.com/",
+    started_activity: "act=android.intent.action.VIEW dat=https://google.com/",
   },
   stop_adb_app: {
     client: clientIdentity,

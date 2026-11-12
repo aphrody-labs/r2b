@@ -11,7 +11,7 @@ spec.loader.exec_module(oracle)
 class PacketOracleTest(unittest.TestCase):
     def test_compression_pointer_preserves_question_cursor(self):
         message = b'\x03www\x07example\x03com\0' + b'\xc0\0' + b'\0\x01\0\x01'
-        self.assertEqual(oracle.dns_name(message, 17), ('www.example.com', 19))
+        self.assertEqual(oracle.dns_name(message, 17), ('www.google.com', 19))
 
     def test_compression_cycle_and_missing_pointer_byte_fail(self):
         for message in (b'\xc0\0', b'\xc0', b'\xc0\x02\xc0\0'):

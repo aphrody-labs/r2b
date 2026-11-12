@@ -196,11 +196,11 @@ it.each([
           bytes: fixture.moduleBytes.length,
         },
         module: {
-          path: "example.com/tool/cmd/tool",
-          main: { path: "example.com/tool", version: "(devel)", sum: "" },
+          path: "google.com/tool/cmd/tool",
+          main: { path: "google.com/tool", version: "(devel)", sum: "" },
           dependencies: [
             {
-              path: "example.com/dependency",
+              path: "google.com/dependency",
               version: "v1.2.3",
               replacement: { path: "../dependency", version: "", sum: "" },
             },

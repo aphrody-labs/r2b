@@ -344,7 +344,7 @@ goMcpTest(
     const root = await createTestTempDirectory("rea-go-mcp-");
     const path = join(root, "application");
     const fixture = createGoBinaryFixture({
-      moduleText: "path\texample.com/tool\nnew-record\tfuture\n",
+      moduleText: "path\tgoogle.com/tool\nnew-record\tfuture\n",
     });
     await writeFile(path, fixture.bytes);
     const response = await client.callTool({
@@ -362,7 +362,7 @@ goMcpTest(
     const evidence = parseEvidence(parsed);
     expect(evidence.confidence).toBe("observed");
     expect(parsed.normalized_result.build_info?.module).toMatchObject({
-      path: "example.com/tool",
+      path: "google.com/tool",
       complete: false,
       unparsed_lines: ["new-record\tfuture"],
     });

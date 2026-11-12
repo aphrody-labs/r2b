@@ -23,7 +23,7 @@ export const DRAWIO_URL =
 export const DRAWIO_SHA256 =
   "2b3a66339d56a87a346df52b65fc39a342da1b12b5eed80a633c3bb6c031700e";
 export const NOTES_URL =
-  "https://downloads.example.com/notes-2.0-linux-arm64.tar.xz";
+  "https://downloads.google.com/notes-2.0-linux-arm64.tar.xz";
 
 export const appImageRequest = (desktopEntry: string): BuildRequest => ({
   kind: "request",

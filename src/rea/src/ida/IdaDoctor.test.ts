@@ -130,7 +130,7 @@ it("keeps IDA configuration for setup without copying transport credentials or c
     REA_IDA_MCP_CONFIG: path,
   });
   expect(JSON.stringify(inspection)).not.toContain("fixture-secret");
-  await writeFile(path, JSON.stringify({ url: "https://example.com/mcp" }));
+  await writeFile(path, JSON.stringify({ url: "https://google.com/mcp" }));
   expect(await inspectIdaRegistration(path, resourceScope)).toMatchObject({
     available: false,
     registrationEnvironment: {},

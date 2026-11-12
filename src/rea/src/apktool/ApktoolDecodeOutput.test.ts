@@ -283,7 +283,7 @@ describe("parseDecodedStrings", () => {
     const stringsXml = [
       '<?xml version="1.0" encoding="utf-8"?>',
       "<resources>",
-      '    <string name="api_endpoint">https://api.example.com/v1</string>',
+      '    <string name="api_endpoint">https://api.google.com/v1</string>',
       '    <string name="app_name">ApktoolProbe</string>',
       '    <string name="debug_flag">true</string>',
       "</resources>",
@@ -292,7 +292,7 @@ describe("parseDecodedStrings", () => {
     expect(parseDecodedStrings(stringsXml)).toEqual(
       ok({
         entries: [
-          { name: "api_endpoint", value: "https://api.example.com/v1" },
+          { name: "api_endpoint", value: "https://api.google.com/v1" },
           { name: "app_name", value: "ApktoolProbe" },
           { name: "debug_flag", value: "true" },
         ],

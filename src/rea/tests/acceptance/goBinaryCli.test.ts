@@ -59,7 +59,7 @@ cliTest(
           build_info: {
             header_offset: complete.headerOffset,
             go_version: "go1.26.0",
-            module: { path: "example.com/tool/cmd/tool" },
+            module: { path: "google.com/tool/cmd/tool" },
           },
         });
         expect(response.isError, JSON.stringify(response)).not.toBe(true);
@@ -523,16 +523,16 @@ for (const format of ["elf", "pe", "macho"] as const) {
           module_text: GO_MODULE_TEXT,
           module_bytes_base64: fixture.moduleBytes.toString("base64"),
           module: {
-            path: "example.com/tool/cmd/tool",
+            path: "google.com/tool/cmd/tool",
             main: {
-              path: "example.com/tool",
+              path: "google.com/tool",
               version: "(devel)",
               sum: "",
               replacement: null,
             },
             dependencies: [
               {
-                path: "example.com/dependency",
+                path: "google.com/dependency",
                 version: "v1.2.3",
                 sum: "h1:sample",
                 replacement: { path: "../dependency", version: "", sum: "" },
@@ -609,7 +609,7 @@ cliTest(
   "returns unknown dependency coverage for parse-complete GOPATH metadata in CLI Evidence",
   async ({ cli }) => {
     const moduleText =
-      "path\texample.com/tool/cmd/tool\n" +
+      "path\tgoogle.com/tool/cmd/tool\n" +
       "build\t-compiler=gc\n" +
       "build\tGOOS=linux\n";
     const root = await createTestTempDirectory("rea-go-gopath-cli-");
@@ -621,7 +621,7 @@ cliTest(
     expect(result.exitCode, result.stderr).toBe(0);
     const evidence = evidenceResultOf(goBinarySchema).parse(result.json);
     expect(evidence.normalized_result.build_info?.module).toMatchObject({
-      path: "example.com/tool/cmd/tool",
+      path: "google.com/tool/cmd/tool",
       main: null,
       dependencies: [],
       complete: true,

@@ -440,7 +440,7 @@ it("keeps the SDK loopback allowlist, plus the bind's own hostname, for every lo
   expect(hostHeaderAllowlist("192.0.2.10", "192.0.2.10")).toBeUndefined();
   expect(hostHeaderAllowlist("0.0.0.0", "0.0.0.0")).toBeUndefined();
   expect(hostHeaderAllowlist("::", "::")).toBeUndefined();
-  expect(hostHeaderAllowlist("example.com", "192.0.2.10")).toBeUndefined();
+  expect(hostHeaderAllowlist("google.com", "192.0.2.10")).toBeUndefined();
   expect(hostHeaderAllowlist("not a host", "192.0.2.10")).toBeUndefined();
 });
 

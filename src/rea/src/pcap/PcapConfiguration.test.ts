@@ -307,7 +307,7 @@ const PARTIAL_TSHARK_JSON = JSON.stringify([
         "ip.src": ["192.168.1.1"],
         "ip.dst": ["8.8.8.8"],
         dns: {
-          "dns.qry.name": "example.com",
+          "dns.qry.name": "google.com",
           "dns.a": "93.184.216.34",
         },
       },
@@ -320,7 +320,7 @@ const PARTIAL_TSHARK_JSON = JSON.stringify([
         "frame.protocols": ["sll:ethertype:ip:tcp:tls"],
         "ip.src": ["192.168.1.1"],
         "ip.dst": ["93.184.216.34"],
-        "tls.handshake.extensions_server_name": ["example.com"],
+        "tls.handshake.extensions_server_name": ["google.com"],
       },
     },
   },
@@ -331,7 +331,7 @@ const PARTIAL_TSHARK_JSON = JSON.stringify([
         "frame.protocols": ["sll:ethertype:ip:tcp:http"],
         "ip.src": ["192.168.1.1"],
         "ip.dst": ["93.184.216.34"],
-        "http.request.full_uri": ["http://example.com/page"],
+        "http.request.full_uri": ["http://google.com/page"],
       },
     },
   },
@@ -349,7 +349,7 @@ describe("parseTsharkJsonOutput", () => {
     );
     expect(result.dnsQueries).toEqual([
       {
-        query: "example.com",
+        query: "google.com",
         query_labels_hex: null,
         response_addresses: [],
         response_address_count: 0,
@@ -357,8 +357,8 @@ describe("parseTsharkJsonOutput", () => {
     ]);
     expect(result.unattributedDnsAddresses).toEqual(["93.184.216.34"]);
     expect(result.partial).toBe(true);
-    expect(result.tlsSniValues).toEqual(["example.com"]);
-    expect(result.httpRequestUris).toEqual(["http://example.com/page"]);
+    expect(result.tlsSniValues).toEqual(["google.com"]);
+    expect(result.httpRequestUris).toEqual(["http://google.com/page"]);
     expect(result.protocolDistribution).toEqual(
       expect.arrayContaining([
         { protocol: "sll:ethertype:ip:udp:dns", packet_count: 1 },

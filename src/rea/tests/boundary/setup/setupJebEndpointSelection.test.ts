@@ -10,7 +10,7 @@ it("validates selected and existing JEB endpoints without losing caller selectio
   const path = join(home, ".cursor/mcp.json");
   await mkdir(join(home, ".cursor"));
   const oldEndpoint = "http://127.0.0.1:8425/mcp";
-  const invalidEndpoint = "https://example.com/mcp";
+  const invalidEndpoint = "https://google.com/mcp";
   const selectedEndpoint = "http://127.0.0.1:8426/mcp/";
   const registration = (endpoint: string) =>
     JSON.stringify({

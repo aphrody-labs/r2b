@@ -15,7 +15,7 @@ export const DPKG_DEB_OUTPUT = [
 ].join("\n");
 
 export const VARICAD_URL =
-  "https://mirror.example.com/varicad/varicad2026-en_2.03_amd64.deb";
+  "https://mirror.google.com/varicad/varicad2026-en_2.03_amd64.deb";
 
 /** The .deb VariCAD was installed from, as the capture records it. */
 export const VARICAD_FILE: DesktopPackageFile = {

@@ -1508,7 +1508,7 @@ describe("exportDesktopApplication from a package file", () => {
   });
 });
 
-const APPIMAGE_URL = "https://downloads.example.com/notes-2.0-aarch64.AppImage";
+const APPIMAGE_URL = "https://downloads.google.com/notes-2.0-aarch64.AppImage";
 const APP_RUN = "/opt/rea-apps/org.example.notes/squashfs-root/AppRun";
 const APPIMAGE_INSTALL = {
   kind: "appimage",
@@ -1649,7 +1649,7 @@ describe("exportDesktopApplication from a download", () => {
 
   it("keeps a URL with quotes, backslashes and triple quotes inside the class's Python string literals", async () => {
     const url =
-      'https://downloads.example.com/notes\\"2.0.AppImage?v="""#""";print(123);"""';
+      'https://downloads.google.com/notes\\"2.0.AppImage?v="""#""";print(123);"""';
     const { result, directory } = await exportDownload(downloadCapture(), {
       ...APPIMAGE_INSTALL,
       url,

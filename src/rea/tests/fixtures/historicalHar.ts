@@ -137,7 +137,7 @@ const ENVIRONMENT_MANIFEST_ROWS: readonly ManifestRow[] = [
   ],
   [
     "GET",
-    "https://grafana.example.com/api/plugins/announcements",
+    "https://grafana.google.com/api/plugins/announcements",
     "application/json",
     '{"items":[]}',
   ],

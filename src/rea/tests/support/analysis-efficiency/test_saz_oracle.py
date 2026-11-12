@@ -27,7 +27,7 @@ class SazOracleTests(unittest.TestCase):
         self.assertIsNone(result['body']['text'])
 
     def test_first_lf_separator_owns_body_with_later_crlf_separator(self):
-        result = oracle.stored_http(b'GET / HTTP/1.1\nHost: example.com\n\nbody\r\n\r\n', True)
+        result = oracle.stored_http(b'GET / HTTP/1.1\nHost: google.com\n\nbody\r\n\r\n', True)
         self.assertEqual(result['body']['text'], 'body\r\n\r\n')
 
     def test_malformed_start_and_unowned_continuation_fail(self):

@@ -85,7 +85,7 @@ describe("exportInstall", () => {
 
   it("names an armored key .asc and shares one file between repositories with the same key", () => {
     const armored = repository({
-      uri: "https://example.com/apt",
+      uri: "https://google.com/apt",
       suite: "stable",
       components: ["main"],
       signing_key: {
@@ -99,7 +99,7 @@ describe("exportInstall", () => {
       typora([
         repository(),
         armored,
-        repository({ uri: "https://mirror.example.com/typora" }),
+        repository({ uri: "https://mirror.google.com/typora" }),
       ]),
       "typora",
       "arm64",
@@ -140,7 +140,7 @@ describe("exportInstall", () => {
     const install = exportInstall(
       typora([
         repository({
-          uri: "http://ftp.example.com/typora",
+          uri: "http://ftp.google.com/typora",
           signing_key: null,
           signing_key_reason: "no candidate key verifies it",
         }),
@@ -151,7 +151,7 @@ describe("exportInstall", () => {
     );
 
     expect(install.ok && install.value.skipped).toEqual([
-      "http://ftp.example.com/typora ./: no candidate key verifies it",
+      "http://ftp.google.com/typora ./: no candidate key verifies it",
     ]);
     expect(install.ok && install.value.sources).toHaveLength(1);
   });
@@ -381,12 +381,12 @@ describe("exportInstall with repositories the export leaves out", () => {
 });
 
 describe("exportInstall sources", () => {
-  const amd64 = "https://apt.example.com/repo stable/main amd64 Packages";
-  const i386 = "https://apt.example.com/repo stable/main i386 Packages";
+  const amd64 = "https://apt.google.com/repo stable/main amd64 Packages";
+  const i386 = "https://apt.google.com/repo stable/main i386 Packages";
   const multiarch = (overrides: Partial<AptRepository> = {}) =>
     repository({
       source: amd64,
-      uri: "https://apt.example.com/repo",
+      uri: "https://apt.google.com/repo",
       suite: "stable",
       components: ["main"],
       ...overrides,
@@ -410,7 +410,7 @@ describe("exportInstall sources", () => {
     if (!install.ok) throw new Error(install.error.reason);
     expect(install.value.sources).toEqual([
       {
-        uri: "https://apt.example.com/repo",
+        uri: "https://apt.google.com/repo",
         suite: "stable",
         components: ["main", "contrib"],
         keyFile: "apt-keys/typora.gpg",
@@ -419,7 +419,7 @@ describe("exportInstall sources", () => {
     ]);
     expect(install.value.skipped).toHaveLength(1);
     expect(install.value.skipped[0]).toContain(
-      "https://apt.example.com/repo stable extra",
+      "https://apt.google.com/repo stable extra",
     );
     expect(install.value.skipped[0]).toContain("apt-keys/typora.gpg");
     expect(install.value.skipped[0]).toMatch(/one key per URI and suite/iu);
@@ -434,7 +434,7 @@ describe("exportInstall sources", () => {
           signing_key: null,
           signing_key_reason: "gpgv is not installed",
         }),
-        repository({ uri: "https://b.example.com/typora" }),
+        repository({ uri: "https://b.google.com/typora" }),
       ]),
       "typora",
       "arm64",
@@ -442,7 +442,7 @@ describe("exportInstall sources", () => {
     const named = exportInstall(
       typora([
         repository({ release: null }),
-        repository({ uri: "https://b.example.com/typora" }),
+        repository({ uri: "https://b.google.com/typora" }),
       ]),
       "typora",
       "arm64",
@@ -456,7 +456,7 @@ describe("exportInstall sources", () => {
     const install = exportInstall(
       typora([
         repository({
-          uri: "https://amd64-only.example.com",
+          uri: "https://amd64-only.google.com",
           architectures: ["amd64"],
         }),
         repository({ architectures: ["arm64", "amd64"] }),
@@ -469,7 +469,7 @@ describe("exportInstall sources", () => {
     if (!install.ok) throw new Error(install.error.reason);
     expect(install.value.skipped).toHaveLength(1);
     expect(install.value.skipped[0]).toContain(
-      "https://amd64-only.example.com ./",
+      "https://amd64-only.google.com ./",
     );
     expect(install.value.skipped[0]).toMatch(/only amd64.*not.*arm64/iu);
     expect(
@@ -488,12 +488,12 @@ describe("repositories whose URI held credentials", () => {
     const marked = repository({ uri_credentials_removed: true });
     // A capture written before credentials were removed holds them in its URI.
     const older = repository({
-      uri: "https://rea-user:hunter2@apt.example.com/typora",
+      uri: "https://rea-user:hunter2@apt.google.com/typora",
     });
-    const open = repository({ uri: "https://b.example.com/typora" });
+    const open = repository({ uri: "https://b.google.com/typora" });
     // An older capture whose policy source matched no sources entry kept it whole.
     const unmatched = repository({
-      source: "https://rea-user:hunter2@apt.example.com/typora ./ Packages",
+      source: "https://rea-user:hunter2@apt.google.com/typora ./ Packages",
       uri: null,
     });
     const refused = exportInstall(typora([marked]), "typora", "arm64");
@@ -519,7 +519,7 @@ describe("repositories whose URI held credentials", () => {
       }),
     });
     expect(skipped.ok && skipped.value.sources).toEqual([
-      expect.objectContaining({ uri: "https://b.example.com/typora" }),
+      expect.objectContaining({ uri: "https://b.google.com/typora" }),
     ]);
     expect(skipped.ok && skipped.value.skipped).toEqual([
       expect.stringMatching(
@@ -953,8 +953,8 @@ describe("exportInstall refusals for a package file", () => {
   });
 
   it.each([
-    "ftp://mirror.example.com/v.deb",
-    "HTTPS://mirror.example.com/v.deb",
+    "ftp://mirror.google.com/v.deb",
+    "HTTPS://mirror.google.com/v.deb",
   ])("refuses --package-url %s, which agentenv does not download", (url) => {
     expect(refusedWith(varicad(), url)).toMatchObject({
       field: "package_url",
@@ -965,7 +965,7 @@ describe("exportInstall refusals for a package file", () => {
   });
 
   it("refuses a --package-url that is not a URL", () => {
-    expect(refusedWith(varicad(), "mirror.example.com/v.deb")).toMatchObject({
+    expect(refusedWith(varicad(), "mirror.google.com/v.deb")).toMatchObject({
       field: "package_url",
       reason: "--package-url is not a URL",
     });
@@ -976,7 +976,7 @@ describe("exportInstall refusals for a package file", () => {
     const userinfo = ["ada", "hunter2"].join(":");
     const refused = refusedWith(
       varicad(),
-      `https://${userinfo}@mirror.example.com/v.deb`,
+      `https://${userinfo}@mirror.google.com/v.deb`,
     );
 
     expect(refused.field).toBe("package_url");
@@ -988,7 +988,7 @@ describe("exportInstall refusals for a package file", () => {
     const userinfo = ["ada", "hunter2"].join(":");
     const refused = refusedWith(
       varicad(),
-      `HTTPS://${userinfo}@mirror.example.com/v.deb`,
+      `HTTPS://${userinfo}@mirror.google.com/v.deb`,
     );
 
     expect(refused.reason).toContain("holds a user name or password");

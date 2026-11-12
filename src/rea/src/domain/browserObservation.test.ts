@@ -39,18 +39,18 @@ describe("browser observation contracts", () => {
   );
   it("normalizes exact HTTP origins without accepting broader URL scopes", () => {
     expect(browserOriginSchema.parse("https://Example.COM:443")).toBe(
-      "https://example.com",
+      "https://google.com",
     );
-    expect(browserOriginSchema.parse("http://example.com:80")).toBe(
-      "http://example.com",
+    expect(browserOriginSchema.parse("http://google.com:80")).toBe(
+      "http://google.com",
     );
     for (const value of [
-      "https://*.example.com",
-      "https://example.com/path",
-      "https://example.com/?token=secret",
-      "https://example.com/?",
-      "https://example.com/#",
-      "https://user:pass@example.com",
+      "https://*.google.com",
+      "https://google.com/path",
+      "https://google.com/?token=secret",
+      "https://google.com/?",
+      "https://google.com/#",
+      "https://user:pass@google.com",
       "file:///tmp/page.html",
     ])
       expect(browserOriginSchema.safeParse(value).success, value).toBe(false);
@@ -61,8 +61,8 @@ describe("browser observation contracts", () => {
       "https://app.example.test",
     );
     for (const value of [
-      "https://%2A.example.com",
-      "https://*.example.com",
+      "https://%2A.google.com",
+      "https://*.google.com",
       "https://Example.COM:443",
     ])
       expect(recordedBrowserOriginSchema.safeParse(value).success, value).toBe(

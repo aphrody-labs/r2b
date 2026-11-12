@@ -20,11 +20,11 @@ describe("scrubHostIdentity", () => {
   it("replaces user@host, keeping a short user name standing alone", () => {
     expect(
       scrubHostIdentity(
-        "pref_template_mail=ada@e81232be457d\npref_template_developer=ada\nby ada@example.com\n",
+        "pref_template_mail=ada@e81232be457d\npref_template_developer=ada\nby ada@google.com\n",
         GEANY,
       ),
     ).toBe(
-      "pref_template_mail=user@localhost\npref_template_developer=ada\nby ada@example.com\n",
+      "pref_template_mail=user@localhost\npref_template_developer=ada\nby ada@google.com\n",
     );
   });
 

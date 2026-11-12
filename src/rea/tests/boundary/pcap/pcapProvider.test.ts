@@ -118,14 +118,14 @@ it("inspects a capture with endpoints, DNS, TLS SNI, and HTTP", async () => {
   );
   expect(result.dns_queries).toEqual([
     {
-      query: "api.example.com",
+      query: "api.google.com",
       query_labels_hex: ["617069", "6578616d706c65", "636f6d"],
       response_addresses: ["93.184.216.34"],
       response_address_count: 1,
     },
   ]);
-  expect(result.tls_sni_values).toEqual(["api.example.com"]);
-  expect(result.http_request_uris).toEqual(["http://api.example.com/v1/data"]);
+  expect(result.tls_sni_values).toEqual(["api.google.com"]);
+  expect(result.http_request_uris).toEqual(["http://api.google.com/v1/data"]);
   expect(result.coverage).toBe("complete");
 });
 
@@ -228,7 +228,7 @@ it("keeps a literal replacement character in valid TShark UTF-8", async () => {
     operation: "inspect_pcap_capture",
     input: { path },
   });
-  expect(result.http_request_uris).toEqual(["http://api.example.com/�"]);
+  expect(result.http_request_uris).toEqual(["http://api.google.com/�"]);
   expect(result.coverage).toBe("complete");
 });
 

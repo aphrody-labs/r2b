@@ -30,7 +30,7 @@ const runInstallScript = async (status: number) => {
   await writeFile(
     join(app, "install-package.sh"),
     renderInstallScript({
-      url: "https://mirror.example.com/varicad.deb",
+      url: "https://mirror.google.com/varicad.deb",
       sha256: "d".repeat(64),
       path: DOWNLOAD,
       architecture: "amd64",

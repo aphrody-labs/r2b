@@ -148,7 +148,7 @@ it.skipIf(process.platform === "win32")(
 
 it("reports a parse-complete GOPATH module text as unknown dependency coverage", async () => {
   const moduleText =
-    "path\texample.com/tool/cmd/tool\n" +
+    "path\tgoogle.com/tool/cmd/tool\n" +
     "build\t-compiler=gc\n" +
     "build\tGOOS=linux\n";
   const root = await createTestTempDirectory("rea-go-gopath-metadata-");
@@ -158,7 +158,7 @@ it("reports a parse-complete GOPATH module text as unknown dependency coverage",
   if (!result.ok) throw result.error;
   expect(result.value.build_info?.module_text).toBe(moduleText);
   expect(result.value.build_info?.module).toMatchObject({
-    path: "example.com/tool/cmd/tool",
+    path: "google.com/tool/cmd/tool",
     main: null,
     dependencies: [],
     complete: true,
@@ -171,8 +171,8 @@ it("reports a parse-complete GOPATH module text as unknown dependency coverage",
 
 it("keeps a module-mode build with no dependency records as an observed empty list", async () => {
   const moduleText =
-    "path\texample.com/tool\n" +
-    "mod\texample.com/tool\t(devel)\t\n" +
+    "path\tgoogle.com/tool\n" +
+    "mod\tgoogle.com/tool\t(devel)\t\n" +
     "build\tGOOS=linux\n";
   const root = await createTestTempDirectory("rea-go-empty-module-deps-");
   const path = join(root, "application.elf");
@@ -181,7 +181,7 @@ it("keeps a module-mode build with no dependency records as an observed empty li
   if (!result.ok) throw result.error;
   expect(result.value.build_info?.module_text).toBe(moduleText);
   expect(result.value.build_info?.module).toMatchObject({
-    main: { path: "example.com/tool", version: "(devel)" },
+    main: { path: "google.com/tool", version: "(devel)" },
     dependencies: [],
     complete: true,
   });

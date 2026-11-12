@@ -147,7 +147,7 @@ describe("compact advertised input schema", () => {
     const canonical = ajv.compile(original);
     const compact = ajv.compile(schema);
     const observation = {
-      captured_url: "https://example.com",
+      captured_url: "https://google.com",
       captured_at: "now",
       status_code: 200,
     };

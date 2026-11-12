@@ -341,7 +341,7 @@ it("extracts escaped WAT import/export forms while retaining multiline producer 
 it("keeps exact local, ambiguous URL, computed and unparseable glue distinct", () => {
   const candidates = ["/app/module.wasm", "/other/module.wasm"];
   const result = associateWasmGlue(
-    'fetch("./module.wasm"); new URL("https://example.com/module.wasm?x=1", import.meta.url); fetch(`module.wasm`); fetch(name + ".wasm");',
+    'fetch("./module.wasm"); new URL("https://google.com/module.wasm?x=1", import.meta.url); fetch(`module.wasm`); fetch(name + ".wasm");',
     "/app/glue.js",
     candidates,
   );
@@ -353,7 +353,7 @@ it("keeps exact local, ambiguous URL, computed and unparseable glue distinct", (
       candidate_paths: ["/app/module.wasm"],
     },
     {
-      value: "https://example.com/module.wasm?x=1",
+      value: "https://google.com/module.wasm?x=1",
       association: "basename-candidates",
       candidate_paths: candidates,
     },

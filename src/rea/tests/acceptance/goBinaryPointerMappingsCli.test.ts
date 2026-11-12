@@ -44,7 +44,7 @@ cliTest(
         go_version: "go1.26.0",
         go_version_bytes_base64: Buffer.from("go1.26.0").toString("base64"),
         module_bytes_base64: fixture.moduleBytes.toString("base64"),
-        module: { path: "example.com/tool/cmd/tool" },
+        module: { path: "google.com/tool/cmd/tool" },
         version_location: { offset: fixture.versionOffset, bytes: 8 },
         module_location: {
           offset: fixture.moduleOffset,

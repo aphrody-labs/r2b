@@ -53,7 +53,7 @@ const graphIdentities = async (source: string) => {
 // Each quoted literal has the same length as its template spelling, so
 // source locations and every derived identity stay comparable.
 it.each([
-  "fetch('https://api.example.com/v1/users');",
+  "fetch('https://api.google.com/v1/users');",
   "client['get']('/api/items');",
   "navigator['sendBeacon']('/api/events', payload);",
   "localStorage.setItem('token', 1);",

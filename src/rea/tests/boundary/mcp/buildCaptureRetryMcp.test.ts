@@ -356,7 +356,7 @@ it("exports an app from apt, without the .deb's URL, when an apt source offers t
   // name; as MyPaint's, its request named librsvg2-common, which GTK only recommends.
   const { started, exported, directory, exportArgv } = await captureDebRequest(
     await fakes({ install: { extraPackages: ["librsvg2-common"] } }),
-    "https://downloads.example.com/notes_1.0_amd64.deb",
+    "https://downloads.google.com/notes_1.0_amd64.deb",
     ["librsvg2-common"],
   );
 
@@ -419,7 +419,7 @@ it("passes an AppImage request's download to the export in a file, whose bundle 
     },
   };
   const download = {
-    url: "https://downloads.example.com/notes-2.0-x86_64.AppImage",
+    url: "https://downloads.google.com/notes-2.0-x86_64.AppImage",
     sha256: "f".repeat(64),
     architecture: "amd64",
   };

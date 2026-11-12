@@ -16,7 +16,7 @@ const REPLACEMENTS = [SEED_LOGIN, SEED_HOME, SEED_HOST];
 const WORD = String.raw`\p{L}\p{N}_`;
 /** A home path ends where no file name character follows, as the computer's boot respelling reads it. */
 const HOME_END = String.raw`(?![${WORD}.@+~-])`;
-/** A host name ends where no name character or `.name` follows, so `host.example.com` is left whole. */
+/** A host name ends where no name character or `.name` follows, so `host.google.com` is left whole. */
 const HOST_END = String.raw`(?![${WORD}-]|\.[${WORD}])`;
 
 const escaped = (text: string): string =>

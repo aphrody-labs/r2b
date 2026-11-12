@@ -3562,7 +3562,7 @@ describe("url-reference JavaScript artifact path resolution", () => {
     });
     expect(
       resolve({
-        declaredPath: "//cdn.example.com/app.js.map",
+        declaredPath: "//cdn.google.com/app.js.map",
         sourcePath: "dist/app.js",
         context: "url-reference",
         files,
@@ -3573,7 +3573,7 @@ describe("url-reference JavaScript artifact path resolution", () => {
     });
     expect(
       resolve({
-        declaredPath: "https://cdn.example.com/app.js.map",
+        declaredPath: "https://cdn.google.com/app.js.map",
         sourcePath: "dist/app.js",
         context: "url-reference",
         files,

@@ -304,7 +304,7 @@ describe("renderers", () => {
 
   it("downloads a package file, installs it with its run script after its dependencies, and supports its architecture only", () => {
     const file = {
-      url: "https://mirror.example.com/varicad/varicad2026-en_2.03_amd64.deb",
+      url: "https://mirror.google.com/varicad/varicad2026-en_2.03_amd64.deb",
       sha256: "d".repeat(64),
       path: "vendor/varicad2026-en_2.03_amd64.deb",
       architecture: "amd64",

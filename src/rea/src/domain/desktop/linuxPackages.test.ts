@@ -119,9 +119,9 @@ describe("parseAptPolicyOrigins", () => {
     " 500 http://ppa.launchpad.net/mozillateam/ppa/ubuntu noble/main arm64 Packages",
     "     release v=24.04,o=LP-PPA-mozillateam,a=noble,n=noble,l=Firefox ESR and security updates,c=main,b=arm64",
     "     origin ppa.launchpad.net",
-    " 500 https://packages.example.com/apt stable/main arm64 Packages",
+    " 500 https://packages.google.com/apt stable/main arm64 Packages",
     "     release a=stable,c=main,b=arm64",
-    "     origin packages.example.com",
+    "     origin packages.google.com",
     " 500 http://mirror.example.edu/ubuntu-ports noble-updates/universe arm64 Packages",
     "     release v=24.04,o=Ubuntu,a=noble-updates,n=noble,l=Ubuntu,c=universe,b=arm64",
     "     origin mirror.example.edu",
@@ -137,7 +137,7 @@ describe("parseAptPolicyOrigins", () => {
       "/var/lib/dpkg/status": null,
       "http://ppa.launchpad.net/mozillateam/ppa/ubuntu noble/main arm64 Packages":
         "LP-PPA-mozillateam",
-      "https://packages.example.com/apt stable/main arm64 Packages": null,
+      "https://packages.google.com/apt stable/main arm64 Packages": null,
       "http://mirror.example.edu/ubuntu-ports noble-updates/universe arm64 Packages":
         "Ubuntu",
       "http://ports.ubuntu.com/ubuntu-ports noble/universe arm64 Packages":
@@ -240,8 +240,8 @@ describe("packageFromPath", () => {
 describe("credentials in apt-cache policy", () => {
   it("leaves out a user name and password apt prints in a source's URI", () => {
     const printed =
-      "https://rea-user:p@ss@apt.example.com/repo stable/main amd64 Packages";
-    const clean = "https://apt.example.com/repo stable/main amd64 Packages";
+      "https://rea-user:p@ss@apt.google.com/repo stable/main amd64 Packages";
+    const clean = "https://apt.google.com/repo stable/main amd64 Packages";
     const versions = [
       "typora:",
       "  Version table:",

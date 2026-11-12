@@ -115,7 +115,7 @@ it("resolves unchanged URL objects and aliases using URL serialization", () => {
   ).toEqual([
     {
       kind: "network",
-      value: "https://example.com/",
+      value: "https://google.com/",
       mechanism: "call:fetch",
       resolution: undefined,
     },

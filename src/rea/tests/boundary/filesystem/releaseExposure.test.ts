@@ -38,7 +38,7 @@ describe("release exposure Deno filesystem boundary", () => {
           buildDenoSection(
             kind === "remote"
               ? {
-                  specifiers: [{ text: "https://example.com/module", id: 1 }],
+                  specifiers: [{ text: "https://google.com/module", id: 1 }],
                   remoteModules: [
                     {
                       specifierId: 1,

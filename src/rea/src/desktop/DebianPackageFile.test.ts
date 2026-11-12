@@ -138,7 +138,7 @@ describe.skipIf(!hasDpkgDeb)("inspectPackageFile with dpkg-deb", () => {
         "Package: rea-sample",
         "Version: 2.0-1",
         "Architecture: amd64",
-        "Maintainer: REA <rea@example.com>",
+        "Maintainer: REA <rea@google.com>",
         "Pre-Depends: dpkg (>= 1.15.6)",
         "Depends: libc6 (>= 2.34), libgl1 | libgl1-mesa-glx, libstdc++6:any",
         "Description: sample",

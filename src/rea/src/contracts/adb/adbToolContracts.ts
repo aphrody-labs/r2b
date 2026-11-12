@@ -351,7 +351,7 @@ export const ADB_TOOL_CONTRACTS = [
         input: {
           serial: "emulator-5554",
           action: "android.intent.action.VIEW",
-          data_uri: "https://example.com/path",
+          data_uri: "https://google.com/path",
         },
       },
       {

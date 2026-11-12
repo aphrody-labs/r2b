@@ -2343,14 +2343,14 @@ it("reports an app without a launcher activity as unsupported", async () => {
 it("starts an intent with typed extras as a fixed argv vector", async () => {
   const { binary, root } = await writeAdbStub(
     (root) => `printf '%s\\n' "$@" >> ${join(root, "argv.log")}
-${shellStub({ "am:start": "Starting: Intent { act=android.intent.action.VIEW dat=https://example.com/ }\n" })(root)}`,
+${shellStub({ "am:start": "Starting: Intent { act=android.intent.action.VIEW dat=https://google.com/ }\n" })(root)}`,
   );
   const started = await evidenceResult(providerOver(binary), {
     operation: "start_adb_activity",
     input: {
       serial: "emulator-5554",
       action: "android.intent.action.VIEW",
-      data_uri: "https://example.com/",
+      data_uri: "https://google.com/",
       extras: [
         { key: "level", type: "int", value: "010" },
         { key: "negative", type: "int", value: "-010" },
@@ -2380,7 +2380,7 @@ ${shellStub({ "am:start": "Starting: Intent { act=android.intent.action.VIEW dat
     "-a",
     "android.intent.action.VIEW",
     "-d",
-    "https://example.com/",
+    "https://google.com/",
     "--ei",
     "level",
     "10",

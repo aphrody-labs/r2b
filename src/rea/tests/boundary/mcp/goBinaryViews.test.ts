@@ -46,7 +46,7 @@ const goViewTest = mcpTest.extend<{
       goVersion: "go1.26.0",
       moduleText:
         GO_MODULE_TEXT +
-        "dep\texample.com/dependency\tv2.0.0\th1:second\nfuture\tunknown\n",
+        "dep\tgoogle.com/dependency\tv2.0.0\th1:second\nfuture\tunknown\n",
     });
     await writeFile(path, fixture.bytes);
     const session = createTestBinarySession(() => {
@@ -197,7 +197,7 @@ goViewTest(
     const view = {
       kind: "go",
       collection: "dependencies",
-      paths: ["example.com/dependency"],
+      paths: ["google.com/dependency"],
       fields: ["version", "replacement"],
       offset: 0,
       limit: 1,
@@ -289,7 +289,7 @@ goViewTest(
         view: {
           kind: "go",
           collection: "dependencies",
-          paths: ["example.com/dependency"],
+          paths: ["google.com/dependency"],
           indices: [1],
           fields: ["version"],
         },

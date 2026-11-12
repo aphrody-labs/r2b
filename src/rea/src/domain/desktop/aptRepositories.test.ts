@@ -122,15 +122,15 @@ describe("parseOneLineSources", () => {
       parseOneLineSources(
         [
           "# Vendor repository",
-          "deb-src https://apt.example.com/repo noble main",
-          "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/vendor.gpg] https://apt.example.com/repo/ noble main contrib # pinned",
+          "deb-src https://apt.google.com/repo noble main",
+          "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/vendor.gpg] https://apt.google.com/repo/ noble main contrib # pinned",
         ].join("\n"),
         "/etc/apt/sources.list.d/vendor.list",
       ),
     ).toEqual([
       expect.objectContaining({
         position: 3,
-        uris: ["https://apt.example.com/repo"],
+        uris: ["https://apt.google.com/repo"],
         suites: ["noble"],
         components: ["main", "contrib"],
         architectures: ["amd64", "arm64"],
@@ -161,7 +161,7 @@ describe("parseDeb822Sources", () => {
         "# a comment-only paragraph apt does not count",
         "",
         "Types: deb",
-        "URIs: https://example.com/off",
+        "URIs: https://google.com/off",
         "Suites: /",
         "Enabled: no",
         "",
@@ -234,7 +234,7 @@ describe("parseDeb822Sources", () => {
   it("keeps a stanza's URIs and suites as lists and resolves a target's pair from them, without expanding every pair", () => {
     const uris = Array.from(
       { length: 500 },
-      (_, index) => `https://mirror${String(index)}.example.com/apt/`,
+      (_, index) => `https://mirror${String(index)}.google.com/apt/`,
     );
     const suites = Array.from(
       { length: 500 },
@@ -254,13 +254,13 @@ describe("parseDeb822Sources", () => {
         {
           ...target,
           sourcesFile: file,
-          repoUri: "https://mirror499.example.com/apt/",
+          repoUri: "https://mirror499.google.com/apt/",
           release: "suite499",
         },
         stanzas,
       ),
     ).toMatchObject({
-      uri: "https://mirror499.example.com/apt",
+      uri: "https://mirror499.google.com/apt",
       suite: "suite499",
       components: ["main"],
     });
@@ -309,10 +309,10 @@ describe("apt index targets", () => {
       "pkgs.k8s.io_core:_stable:_v1.30_deb_InRelease",
       "ports.ubuntu.com_ubuntu-ports_dists_noble-updates_InRelease",
     ]);
-    const uri = new URL("https://apt.example.com/a_b~c/");
+    const uri = new URL("https://apt.google.com/a_b~c/");
     uri.username = "user";
     uri.password = "pw";
-    expect(aptListFileName(uri.href)).toBe("apt.example.com_a%5fb%7ec_");
+    expect(aptListFileName(uri.href)).toBe("apt.google.com_a%5fb%7ec_");
   });
 
   it("finds the sources entry of each target, by position and then URI and suite", () => {
@@ -356,10 +356,10 @@ describe("credentials in a source URI", () => {
   it("removes a user name and password from one-line entries and marks the URIs that held them", () => {
     const stanzas = parseOneLineSources(
       [
-        "deb https://rea-user:hunter2@apt.example.com/repo/ stable main",
-        "deb [arch=amd64] https://rea-user@apt.example.com/user-only noble main",
-        "deb https://rea-user:hunter2@ss@apt.example.com/at-sign stable main",
-        "deb https://apt.example.com/open stable main",
+        "deb https://rea-user:hunter2@apt.google.com/repo/ stable main",
+        "deb [arch=amd64] https://rea-user@apt.google.com/user-only noble main",
+        "deb https://rea-user:hunter2@ss@apt.google.com/at-sign stable main",
+        "deb https://apt.google.com/open stable main",
       ].join("\n"),
       ONE_LINE_FILE,
     );
@@ -368,18 +368,18 @@ describe("credentials in a source URI", () => {
       stanzas.map(({ uris, credentialed }) => ({ uris, credentialed })),
     ).toEqual([
       {
-        uris: ["https://apt.example.com/repo"],
-        credentialed: ["https://apt.example.com/repo"],
+        uris: ["https://apt.google.com/repo"],
+        credentialed: ["https://apt.google.com/repo"],
       },
       {
-        uris: ["https://apt.example.com/user-only"],
-        credentialed: ["https://apt.example.com/user-only"],
+        uris: ["https://apt.google.com/user-only"],
+        credentialed: ["https://apt.google.com/user-only"],
       },
       {
-        uris: ["https://apt.example.com/at-sign"],
-        credentialed: ["https://apt.example.com/at-sign"],
+        uris: ["https://apt.google.com/at-sign"],
+        credentialed: ["https://apt.google.com/at-sign"],
       },
-      { uris: ["https://apt.example.com/open"], credentialed: [] },
+      { uris: ["https://apt.google.com/open"], credentialed: [] },
     ]);
     expect(JSON.stringify(stanzas)).not.toMatch(CREDENTIALS);
   });
@@ -388,7 +388,7 @@ describe("credentials in a source URI", () => {
     const stanzas = parseDeb822Sources(
       [
         "Types: deb",
-        "URIs: https://rea-user:hunter2@apt.example.com/repo/ https://rea-user@mirror.example.com/repo https://open.example.com/repo",
+        "URIs: https://rea-user:hunter2@apt.google.com/repo/ https://rea-user@mirror.google.com/repo https://open.google.com/repo",
         "Suites: stable",
         "Components: main",
       ].join("\n"),
@@ -398,13 +398,13 @@ describe("credentials in a source URI", () => {
     expect(stanzas).toEqual([
       expect.objectContaining({
         uris: [
-          "https://apt.example.com/repo",
-          "https://mirror.example.com/repo",
-          "https://open.example.com/repo",
+          "https://apt.google.com/repo",
+          "https://mirror.google.com/repo",
+          "https://open.google.com/repo",
         ],
         credentialed: [
-          "https://apt.example.com/repo",
-          "https://mirror.example.com/repo",
+          "https://apt.google.com/repo",
+          "https://mirror.google.com/repo",
         ],
       }),
     ]);
@@ -415,22 +415,22 @@ describe("credentials in a source URI", () => {
     const stanzas = parseDeb822Sources(
       [
         "Types: deb",
-        "URIs: https://rea-user:hunter2@apt.example.com/repo/ https://open.example.com/repo",
+        "URIs: https://rea-user:hunter2@apt.google.com/repo/ https://open.google.com/repo",
         "Suites: stable",
         "Components: main",
       ].join("\n"),
       DEB822_FILE,
     );
     const description =
-      "https://apt.example.com/repo stable/main amd64 Packages";
+      "https://apt.google.com/repo stable/main amd64 Packages";
     for (const repoUri of [
-      "https://rea-user:hunter2@apt.example.com/repo/",
-      "https://apt.example.com/repo/",
+      "https://rea-user:hunter2@apt.google.com/repo/",
+      "https://apt.google.com/repo/",
     ]) {
       const [target] = parseAptIndexTargets(
         [
           `Description: ${repoUri.slice(0, -1)} stable/main amd64 Packages`,
-          "Filename: /var/lib/apt/lists/apt.example.com_repo_dists_stable_main_binary-amd64_Packages",
+          "Filename: /var/lib/apt/lists/apt.google.com_repo_dists_stable_main_binary-amd64_Packages",
           `Base-URI: ${repoUri}dists/stable/`,
           "Component: main",
           "Release: stable",
@@ -442,12 +442,12 @@ describe("credentials in a source URI", () => {
 
       expect(target).toMatchObject({
         description,
-        repoUri: "https://apt.example.com/repo/",
-        baseUri: "https://apt.example.com/repo/dists/stable/",
+        repoUri: "https://apt.google.com/repo/",
+        baseUri: "https://apt.google.com/repo/dists/stable/",
       });
       const entry = entryForTarget(target, stanzas);
       expect(entry).toMatchObject({
-        uri: "https://apt.example.com/repo",
+        uri: "https://apt.google.com/repo",
         credentials: true,
       });
       expect(JSON.stringify([target, entry])).not.toMatch(CREDENTIALS);
@@ -455,7 +455,7 @@ describe("credentials in a source URI", () => {
         ...declaredPackageFiles(
           [
             {
-              uri: "https://apt.example.com/repo",
+              uri: "https://apt.google.com/repo",
               suite: "stable",
               components: ["main"],
             },
@@ -478,9 +478,9 @@ describe("validSignature", () => {
   it("refuses a key that a bad, expired or revoked signature names, and an unverified signature", () => {
     const [newsig, considered, sigId, , validsig] = GPGV_A_ONLY.split("\n");
     for (const line of [
-      "[GNUPG:] BADSIG 6701CFD5B893036C Vendor A <a@example.com>",
-      "[GNUPG:] EXPKEYSIG 6701CFD5B893036C Vendor A <a@example.com>",
-      "[GNUPG:] REVKEYSIG 6701CFD5B893036C Vendor A <a@example.com>",
+      "[GNUPG:] BADSIG 6701CFD5B893036C Vendor A <a@google.com>",
+      "[GNUPG:] EXPKEYSIG 6701CFD5B893036C Vendor A <a@google.com>",
+      "[GNUPG:] REVKEYSIG 6701CFD5B893036C Vendor A <a@google.com>",
     ])
       expect(
         validSignature([newsig, considered, sigId, line, validsig].join("\n")),

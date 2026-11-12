@@ -728,7 +728,7 @@ it("does not hide an invalid JEB endpoint in an untouched configuration layer", 
   const bad = JSON.stringify({
     mcp: {
       rea: clientRegistrationEntry("opencode", ["rea", "mcp"], {
-        REA_JEB_MCP_URL: "https://example.com/mcp",
+        REA_JEB_MCP_URL: "https://google.com/mcp",
       }),
     },
   });

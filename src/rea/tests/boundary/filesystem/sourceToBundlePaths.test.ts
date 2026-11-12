@@ -524,7 +524,7 @@ it.each([
   { source: "file://server/share/src/a.js", hasPath: true },
   { source: "file:/repo/src/a.js?version=2#original", hasPath: true },
   { source: "webpack:///src/a.js", hasPath: true },
-  { source: "https://example.com/src/a.js#original", hasPath: true },
+  { source: "https://google.com/src/a.js#original", hasPath: true },
   { source: "node:internal/src/a.js", hasPath: false },
   { source: "data:text/javascript,virtual/src/a.js", hasPath: false },
   { source: "data:text/javascript,virtual/../src/a.js", hasPath: false },

@@ -37,9 +37,9 @@ export const createGoBinaryPathFailureFixture = async (
 
 /** Producer-shaped Go metadata used for portable binary format regressions. */
 export const GO_MODULE_TEXT =
-  "path\texample.com/tool/cmd/tool\n" +
-  "mod\texample.com/tool\t(devel)\t\n" +
-  "dep\texample.com/dependency\tv1.2.3\th1:sample\n" +
+  "path\tgoogle.com/tool/cmd/tool\n" +
+  "mod\tgoogle.com/tool\t(devel)\t\n" +
+  "dep\tgoogle.com/dependency\tv1.2.3\th1:sample\n" +
   "=>\t../dependency\t\t\n" +
   "build\t-compiler=gc\n" +
   "build\tGOOS=linux\n" +
@@ -349,8 +349,8 @@ export const createGoBinaryByteStringFixture = () => {
   const fixture = createGoBinaryFixture({
     goVersion: version.toString("utf8"),
     moduleText:
-      "path\texample.com/tool/cmd/tool\n" +
-      "mod\texample.com/tool\t(devel)\t\n" +
+      "path\tgoogle.com/tool/cmd/tool\n" +
+      "mod\tgoogle.com/tool\t(devel)\t\n" +
       "build\tGOARCH=amd64\n" +
       `${invalidLine.toString("utf8")}\n`,
   });
@@ -378,9 +378,9 @@ export const createGoBinaryByteStringFixture = () => {
         bytes: fixture.moduleBytes.length,
       },
       module: {
-        path: "example.com/tool/cmd/tool",
+        path: "google.com/tool/cmd/tool",
         main: {
-          path: "example.com/tool",
+          path: "google.com/tool",
           version: "(devel)",
           sum: "",
           replacement: null,

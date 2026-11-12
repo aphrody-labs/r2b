@@ -387,7 +387,7 @@ it("excludes other origins, pages, assets and non-JSON groups with reasons and f
     },
     {
       method: "GET",
-      origin: "https://grafana.example.com",
+      origin: "https://grafana.google.com",
       path_template: "/api/plugins/announcements",
       reason: "other-origin",
     },

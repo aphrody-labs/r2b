@@ -187,9 +187,9 @@ describe("draftTaskFiles for elements no attribute names", () => {
       )
       .join("")}</contacts_records></osmo_contacts>`;
   const HANNAH =
-    "<first_name>Hannah</first_name><last_name>Okafor</last_name><email_1>hannah.okafor@example.com</email_1>";
+    "<first_name>Hannah</first_name><last_name>Okafor</last_name><email_1>hannah.okafor@google.com</email_1>";
   const DELPHINE =
-    "<first_name>Delphine</first_name><last_name>Moreau</last_name><cell_phone_1>555-0163</cell_phone_1><email_1>delphine.moreau@example.com</email_1>";
+    "<first_name>Delphine</first_name><last_name>Moreau</last_name><cell_phone_1>555-0163</cell_phone_1><email_1>delphine.moreau@google.com</email_1>";
 
   it("names a record added whole by a child's text and checks each field it entered, never a default every record holds, then counts the records", () => {
     const before = contacts(HANNAH);
@@ -207,7 +207,7 @@ describe("draftTaskFiles for elements no attribute names", () => {
       ...[
         ["last_name", "Moreau"],
         ["cell_phone_1", "555-0163"],
-        ["email_1", "delphine.moreau@example.com"],
+        ["email_1", "delphine.moreau@google.com"],
       ].map(([field, value]) => ({
         kind: "text_equals",
         file: ".local/share/osmo/contacts.xml",
@@ -476,13 +476,13 @@ describe("draftTaskFiles for truncated and linked records", () => {
     const docs: [string, string, string] = [
       "1",
       "Docs",
-      "https://example.com/docs",
+      "https://google.com/docs",
     ];
     const before = bookmarks(docs);
     const after = bookmarks(docs, [
       "2",
       "Release notes",
-      "https://example.com/notes",
+      "https://google.com/notes",
     ]);
 
     const file = xmlDraft(before, after);
@@ -499,7 +499,7 @@ describe("draftTaskFiles for truncated and linked records", () => {
         kind: "text_equals",
         file: FILE,
         pointer: `${bookmark}/children/[name=link]`,
-        value: "https://example.com/notes",
+        value: "https://google.com/notes",
       },
       {
         kind: "member_count",

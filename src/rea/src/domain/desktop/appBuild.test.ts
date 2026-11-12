@@ -126,14 +126,14 @@ describe("build bundle install sources", () => {
     const bundle = renderBuildBundle(
       request({
         kind: "package_file",
-        url: "https://downloads.example.com/varicad.deb",
+        url: "https://downloads.google.com/varicad.deb",
         sha256,
         architecture: "amd64",
         dependencies: ["libgl1"],
       }),
       {
         kind: "download",
-        url: "https://releases.example.com/rea.tar.xz",
+        url: "https://releases.google.com/rea.tar.xz",
         sha256: "b".repeat(64),
       },
     );
@@ -142,10 +142,10 @@ describe("build bundle install sources", () => {
       'packages=Packages(apt=["libgl1", "libgtk-3-bin", "dconf-cli"])',
     );
     expect(module).toContain(
-      `Download(url="https://downloads.example.com/varicad.deb", sha256="${sha256}", to="vendor/package.deb", arch="amd64")`,
+      `Download(url="https://downloads.google.com/varicad.deb", sha256="${sha256}", to="vendor/package.deb", arch="amd64")`,
     );
     expect(module).toContain(
-      `Download(url="https://releases.example.com/rea.tar.xz", sha256="${"b".repeat(64)}", to="rea-payload.tar")`,
+      `Download(url="https://releases.google.com/rea.tar.xz", sha256="${"b".repeat(64)}", to="rea-payload.tar")`,
     );
     expect(module).toContain('"arch": ["amd64"]');
     expect(module).not.toContain('to="node-arm64.tar.xz"');
@@ -180,7 +180,7 @@ describe("build bundle install sources", () => {
         desktop_entry: "mousepad",
         install: {
           kind: "package_file",
-          url: "https://user@example.com/a.deb",
+          url: "https://user@google.com/a.deb",
           sha256: "a".repeat(64),
           architecture: "amd64",
         },
@@ -193,7 +193,7 @@ describe("build bundle install sources", () => {
         install: {
           kind: "apt_repository",
           package: "geany",
-          uri: "ftp://example.com/ubuntu",
+          uri: "ftp://google.com/ubuntu",
           suite: "noble",
           key_file: "/keys/geany.gpg",
         },
@@ -266,7 +266,7 @@ describe("build bundle download installs", () => {
     expect(install({ program: "/usr/bin/notes" })).toBe(false);
     expect(install({ program: "notes//notes" })).toBe(false);
     expect(install({ sha256: "C".repeat(64) })).toBe(false);
-    expect(install({ url: "ftp://downloads.example.com/notes.tar.xz" })).toBe(
+    expect(install({ url: "ftp://downloads.google.com/notes.tar.xz" })).toBe(
       false,
     );
     expect(install({ name: "Notes\nExec=/bin/sh" })).toBe(false);
@@ -277,7 +277,7 @@ describe("build bundle download installs", () => {
         desktop_entry: "drawio",
         install: {
           kind: "appimage",
-          url: "https://user:secret@example.com/drawio.AppImage",
+          url: "https://user:secret@google.com/drawio.AppImage",
           sha256: DRAWIO_SHA256,
           architecture: "arm64",
         },

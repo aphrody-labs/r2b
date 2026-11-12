@@ -50,7 +50,7 @@ export const TSHARK_JSON = JSON.stringify([
         "frame.protocols": ["eth:ethertype:ip:udp:dns"],
         "ip.src": ["192.168.1.100"],
         "ip.dst": ["8.8.8.8"],
-        "dns.qry.name": ["api.example.com"],
+        "dns.qry.name": ["api.google.com"],
         "dns.a": ["93.184.216.34"],
       },
     },
@@ -62,7 +62,7 @@ export const TSHARK_JSON = JSON.stringify([
         "frame.protocols": ["eth:ethertype:ip:tcp:tls"],
         "ip.src": ["192.168.1.100"],
         "ip.dst": ["93.184.216.34"],
-        "tls.handshake.extensions_server_name": ["api.example.com"],
+        "tls.handshake.extensions_server_name": ["api.google.com"],
       },
     },
   },
@@ -73,7 +73,7 @@ export const TSHARK_JSON = JSON.stringify([
         "frame.protocols": ["eth:ethertype:ip:tcp:http"],
         "ip.src": ["192.168.1.100"],
         "ip.dst": ["93.184.216.34"],
-        "http.request.full_uri": ["http://api.example.com/v1/data"],
+        "http.request.full_uri": ["http://api.google.com/v1/data"],
       },
     },
   },
@@ -84,7 +84,7 @@ export const TSHARK_DNS_JSON = JSON.stringify([
     _source: {
       layers: {
         frame: { "frame.number": "1" },
-        ...dnsResponseLayers("api.example.com", "93.184.216.34"),
+        ...dnsResponseLayers("api.google.com", "93.184.216.34"),
       },
     },
   },
@@ -115,17 +115,17 @@ export const writeStubTools = async (
   const capinfos = join(root, "capinfos");
   const tsharkOutput = options.http2Uri
     ? TSHARK_JSON.replace(
-        '"http.request.full_uri":["http://api.example.com/v1/data"]',
+        '"http.request.full_uri":["http://api.google.com/v1/data"]',
         '"http2.request.full_uri":["http://example.test/h2"],"http2.headers.path":["/h2"]',
       ).replace('eth:ethertype:ip:tcp:http"', 'eth:ethertype:ip:tcp:http2"')
     : options.literalReplacement
       ? TSHARK_JSON.replace(
-          "http://api.example.com/v1/data",
-          "http://api.example.com/�",
+          "http://api.google.com/v1/data",
+          "http://api.google.com/�",
         )
       : options.httpAbsoluteUriOnly
         ? TSHARK_JSON.replace(
-            '"http.request.full_uri":["http://api.example.com/v1/data"]',
+            '"http.request.full_uri":["http://api.google.com/v1/data"]',
             '"http.request.uri":["http://proxy.example.test/path"]',
           )
         : TSHARK_JSON;

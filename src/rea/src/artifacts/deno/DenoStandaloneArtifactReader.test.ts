@@ -326,7 +326,7 @@ it("reports cancellation and keeps indexed paths for an unsupported remote listi
 });
 
 it("keeps a resolved remote module beside one with a missing specifier", async () => {
-  const url = "https://example.com/mod.ts";
+  const url = "https://google.com/mod.ts";
   const snapshot = await inventoryOf(
     "partial-remote",
     denoElf(
@@ -347,7 +347,7 @@ it("keeps a resolved remote module beside one with a missing specifier", async (
   });
   expect(
     snapshot.occurrences.find(
-      (row) => row.logical_path === "deno-remote/example.com/mod.ts",
+      (row) => row.logical_path === "deno-remote/google.com/mod.ts",
     ),
   ).toMatchObject({
     format_metadata: { source_path: url, entry_point: true },
@@ -365,7 +365,7 @@ it("keeps a resolved remote module beside one with a missing specifier", async (
 it.each([
   ["a port", "http://localhost:8000/mod.ts", "localhost%3A8000/mod.ts"],
   ["an IPv6 host", "http://[::1]:8000/mod.ts", "[%3A%3A1]%3A8000/mod.ts"],
-  ["a path colon", "https://example.com/a:b.ts", "example.com/a%3Ab.ts"],
+  ["a path colon", "https://google.com/a:b.ts", "google.com/a%3Ab.ts"],
 ])("encodes %s in a remote logical path", async (_label, url, path) => {
   const snapshot = await inventoryOf(
     "remote-colon",
@@ -389,7 +389,7 @@ it.each([
 it.each([
   [
     "a wildcard",
-    "https://example.com/mod.ts?exports=*",
+    "https://google.com/mod.ts?exports=*",
     "mod.ts%3Fexports%3D%2A",
   ],
   ["a pipe", "file:///src/a%7Cb.ts", null],
@@ -413,7 +413,7 @@ it.each([
   );
   expect(row?.logical_path).not.toMatch(/[*?"<>|:\\]/u);
   if (tail !== null)
-    expect(row?.logical_path).toBe(`deno-remote/example.com/${tail}`);
+    expect(row?.logical_path).toBe(`deno-remote/google.com/${tail}`);
 });
 
 it("encodes a colon in a specifier that is not a host path", async () => {
@@ -437,8 +437,8 @@ it("indexes a remote path that collides once its colon is encoded", async () => 
     denoElf(
       buildDenoSection({
         specifiers: [
-          { text: "https://example.com/a:b.ts", id: 1 },
-          { text: "https://example.com/a%3Ab.ts", id: 2 },
+          { text: "https://google.com/a:b.ts", id: 1 },
+          { text: "https://google.com/a%3Ab.ts", id: 2 },
         ],
         remoteModules: [
           { specifierId: 1, data: "first" },
@@ -450,22 +450,22 @@ it("indexes a remote path that collides once its colon is encoded", async () => 
   expect(
     snapshot.occurrences.find((row) => row.logical_path === "deno-remote/1"),
   ).toMatchObject({
-    format_metadata: { source_path: "https://example.com/a%3Ab.ts" },
+    format_metadata: { source_path: "https://google.com/a%3Ab.ts" },
   });
 });
 
 it.each([
   [
     "a colon",
-    "https://example.com/a:b.ts",
-    "https://example.com/a%3ab.ts",
-    "deno-remote/example.com/a%3Ab.ts",
+    "https://google.com/a:b.ts",
+    "https://google.com/a%3ab.ts",
+    "deno-remote/google.com/a%3Ab.ts",
   ],
   [
     "a query",
-    "https://example.com/a?b",
-    "https://example.com/a%3fb",
-    "deno-remote/example.com/a%3Fb",
+    "https://google.com/a?b",
+    "https://google.com/a%3fb",
+    "deno-remote/google.com/a%3Fb",
   ],
   ["a backslash", "x:a\\b", "x%3aa%5cb", "x%3Aa%5Cb"],
 ])(
@@ -502,7 +502,7 @@ it("reports unknown coverage when the virtual filesystem cannot be listed", asyn
     denoElf(
       buildDenoSection({
         vfs: { unexpected: true },
-        specifiers: [{ text: "https://example.com/mod.ts", id: 1 }],
+        specifiers: [{ text: "https://google.com/mod.ts", id: 1 }],
         remoteModules: [{ specifierId: 1, data: "remote" }],
       }),
     ),
@@ -521,7 +521,7 @@ it("reports unknown coverage when the virtual filesystem cannot be listed", asyn
 
 it("indexes a remote specifier whose component exceeds the filesystem name limit", async () => {
   const query = `q=${"a".repeat(MAX_DENO_PATH_COMPONENT_BYTES)}`;
-  const specifier = `https://example.com/mod.ts?${query}`;
+  const specifier = `https://google.com/mod.ts?${query}`;
   const snapshot = await inventoryOf(
     "long-remote",
     denoElf(
@@ -564,7 +564,7 @@ it.each([
         buildDenoSection({
           specifiers: [
             { text: "file:///main.ts", id: 0 },
-            { text: `https://example.com/${leaf}`, id: 1 },
+            { text: `https://google.com/${leaf}`, id: 1 },
           ],
           remoteModules: [
             { specifierId: 1, data: Buffer.from("body"), ...extra },
@@ -576,7 +576,7 @@ it.each([
         (row) => row.logical_path,
       );
     expect(await paths(carrier({}))).toContain(
-      `deno-remote/example.com/${leaf}`,
+      `deno-remote/google.com/${leaf}`,
     );
     const indexed = await paths(carrier(child));
     expect(indexed).toContain("deno-remote/0");
@@ -608,7 +608,7 @@ it("indexes a remote path that prefixes another embedded path", async () => {
       buildDenoSection({
         specifiers: [
           { text: "file:///main.ts", id: 0 },
-          { text: "https://example.com/a.ts", id: 1 },
+          { text: "https://google.com/a.ts", id: 1 },
         ],
         remoteModules: [{ specifierId: 1, data: Buffer.from("body") }],
         vfs: [
@@ -618,7 +618,7 @@ it("indexes a remote path that prefixes another embedded path", async () => {
               e: [
                 {
                   Dir: {
-                    n: "example.com",
+                    n: "google.com",
                     e: [{ File: { n: "a.ts", o: [0, 1] } }],
                   },
                 },

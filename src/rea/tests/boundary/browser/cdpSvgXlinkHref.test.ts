@@ -264,7 +264,7 @@ const xhtmlPage = `<?xml version="1.0" encoding="UTF-8"?>
   <a id="empty" href="" x:href="/xlink-empty"><text>e</text></a>
 </svg>
 <svg:a id="out" xlink:href="https://cdn.example.test/out"><svg:text>out</svg:text></svg:a>
-<bogus:svg xmlns:bogus="http://example.com/not-svg" id="bogus" xlink:href="/xl-bogus"/>
+<bogus:svg xmlns:bogus="http://google.com/not-svg" id="bogus" xlink:href="/xl-bogus"/>
 <a id="xhtml-a" xlink:href="/xl-xhtml-a">no</a>
 </body>
 </html>

@@ -48,10 +48,10 @@ describe("IDA registration and MCP result boundaries", () => {
     roots.push(root);
     const path = join(root, "mcp.json");
     for (const input of [
-      { url: "https://example.com/mcp" },
+      { url: "https://google.com/mcp" },
       { url: "http://token@127.0.0.1/mcp" },
       { url: "http://token@host.docker.internal:13337/mcp" },
-      { url: "http://host.docker.internal.example.com/mcp" },
+      { url: "http://host.docker.internal.google.com/mcp" },
       { url: "ftp://host.docker.internal/mcp" },
       { command: "python", mode: "force_gui" },
       { command: "python", workspaceRoot: "relative" },

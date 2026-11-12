@@ -1151,7 +1151,7 @@ describe("XHTML and XML SVG namespace prefixes", () => {
           parent: 1,
           attributes: [
             ["xmlns", SVG_NAMESPACE],
-            ["xmlns:xlink", "http://example.com/not-xlink"],
+            ["xmlns:xlink", "http://google.com/not-xlink"],
             ["xmlns:x", XLINK_NAMESPACE],
           ],
         },
@@ -1240,7 +1240,7 @@ describe("XHTML SVG exclusions, HTML documents, and prefix scope", () => {
           ["xmlns", XHTML_NAMESPACE],
           ["xmlns:svg", SVG_NAMESPACE],
           ["xmlns:xlink", XLINK_NAMESPACE],
-          ["xmlns:bogus", "http://example.com/not-svg"],
+          ["xmlns:bogus", "http://google.com/not-svg"],
         ]),
         {
           name: "bogus:svg",
