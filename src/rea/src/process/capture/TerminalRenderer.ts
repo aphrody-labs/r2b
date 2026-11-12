@@ -1,5 +1,5 @@
-import * as HeadlessPackage from "@xterm/headless";
-import * as SerializePackage from "@xterm/addon-serialize";
+import HeadlessPackage from "@xterm/headless";
+import SerializePackage from "@xterm/addon-serialize";
 import type { TerminalRetention } from "../../domain/process/processCaptureCoverage.js";
 import type { BoundedProcessTextNormalization } from "./ProcessNormalization.js";
 
