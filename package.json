@@ -5,8 +5,12 @@
   "description": "rea to build: REA reverse-engineering CLI/MCP server merged with the Replica app-cloning skills.",
   "license": "MIT",
   "type": "module",
-  "workspaces": ["src/rea"],
-  "engines": { "bun": ">=1.4.4" },
+  "workspaces": [
+    "src/rea"
+  ],
+  "engines": {
+    "bun": ">=1.4.4"
+  },
   "scripts": {
     "check": "bun run --cwd src/rea typecheck",
     "build": "bun run --cwd src/rea build",

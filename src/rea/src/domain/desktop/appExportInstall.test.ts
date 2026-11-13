@@ -952,17 +952,17 @@ describe("exportInstall refusals for a package file", () => {
     );
   });
 
-  it.each([
-    "ftp://mirror.google.com/v.deb",
-    "HTTPS://mirror.google.com/v.deb",
-  ])("refuses --package-url %s, which agentenv does not download", (url) => {
-    expect(refusedWith(varicad(), url)).toMatchObject({
-      field: "package_url",
-      reason: expect.stringMatching(
-        /--package-url.*http:\/\/.*https:\/\/.*lowercase/i,
-      ),
-    });
-  });
+  it.each(["ftp://mirror.google.com/v.deb", "HTTPS://mirror.google.com/v.deb"])(
+    "refuses --package-url %s, which agentenv does not download",
+    (url) => {
+      expect(refusedWith(varicad(), url)).toMatchObject({
+        field: "package_url",
+        reason: expect.stringMatching(
+          /--package-url.*http:\/\/.*https:\/\/.*lowercase/i,
+        ),
+      });
+    },
+  );
 
   it("refuses a --package-url that is not a URL", () => {
     expect(refusedWith(varicad(), "mirror.google.com/v.deb")).toMatchObject({
