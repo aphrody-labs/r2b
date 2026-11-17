@@ -37,7 +37,7 @@ image = { version = "0.25.10", default-features = false, features = ["png", "web
 cridecoder = { version = "0.2.3", default-features = false, optional = true }
 tempfile = { version = "3.27.0", default-features = false, features = ["getrandom"], optional = true }
 aphrody-nie-lua = { workspace = true, optional = true }
-aphrody-sprite-sheet = { path = "../../../yolo-ai/crates/aphrody-sprite-sheet", version = "1.4.8" }
+aphrody-sprite-sheet = "1.4.7"
 
 [dev-dependencies]
 serde_json = { version = "1.0.154", default-features = false, features = [
