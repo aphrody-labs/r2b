@@ -8,9 +8,6 @@ license = "Apache-2.0"
 publish = false
 description = "Level-5 and Criware binary format parsers for reverse engineering"
 
-[lints]
-workspace = true
-
 [features]
 default = ["std", "serde", "lua"]
 std = ["dep:crc32fast", "crc32fast/std", "dep:tempfile"]
@@ -36,7 +33,7 @@ png = { version = "0.18.1", default-features = false, optional = true }
 image = { version = "0.25.10", default-features = false, features = ["png", "webp", "gif", "jpeg", "bmp", "tga", "tiff", "qoi"], optional = true }
 cridecoder = { version = "0.2.3", default-features = false, optional = true }
 tempfile = { version = "3.27.0", default-features = false, features = ["getrandom"], optional = true }
-aphrody-nie-lua = { workspace = true, optional = true }
+aphrody-nie-lua = { version = "1.4.7", optional = true }
 aphrody-sprite-sheet = "1.4.7"
 
 [dev-dependencies]
